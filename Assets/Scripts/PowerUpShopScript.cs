@@ -2,23 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PowerUpShopScript : MonoBehaviour
 {
     public GameObject infoPanel;
+    public TextMeshProUGUI description;
+    public TextMeshProUGUI keyCost;
+    public TextMeshProUGUI tokenCost;
+    public TextMeshProUGUI title;
+    public Image thumbnail;
+
     public RectTransform shoplist;
     public string[] powerups;
+    public string[] powerupDescriptions;
+    public int[] powerupCosts;
     public int[] tokenPrices;
     public Sprite[] powerupSprites;
+
+    [Header("Prefabs")]
     public GameObject powerUpShopItem;
 
     void Start()
     {
+
+        infoPanel.SetActive(false);
         for (int i = 0; i < powerups.Length; i++) //Instantiate the Shop.
         {
             GameObject s = Instantiate(powerUpShopItem, shoplist);
             PowerUpShopItem item = powerUpShopItem.GetComponent<PowerUpShopItem>();
-            item.Initialize(powerups[i], powerupSprites[i]);
+            item.Initialize(powerups[i], powerupSprites[i], i);
             item.gameObject.SetActive(true);
         }
     }
@@ -29,8 +42,20 @@ public class PowerUpShopScript : MonoBehaviour
         
     }
 
-    public void select(Button b)
+    public void QuitInfo()
     {
+        FindObjectOfType<AudioManager>().Play("switch");
+        infoPanel.SetActive(false);
+    }
 
+    public void SelectPowerup(int i)
+    {
+        FindObjectOfType<AudioManager>().Play("switch");
+        description.text = powerupDescriptions[i];
+        keyCost.text = powerupCosts[i].ToString("00000");
+        tokenCost.text = tokenPrices[i].ToString("00");
+        title.text = powerups[i];
+        thumbnail.sprite = powerupSprites[i];
+        infoPanel.SetActive(true);
     }
 }
