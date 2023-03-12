@@ -13,6 +13,8 @@ public class PowerUpShopScript : MonoBehaviour
     public TextMeshProUGUI title;
     public Image thumbnail;
 
+    public TextMeshProUGUI redKeyTotal;
+
     public RectTransform shoplist;
     public string[] powerups;
     public string[] powerupDescriptions;
@@ -25,7 +27,7 @@ public class PowerUpShopScript : MonoBehaviour
 
     void Start()
     {
-
+        redKeyTotal.text = PlayerPrefs.GetInt("BlueKeys", 0).ToString("000000000");
         infoPanel.SetActive(false);
         for (int i = 0; i < powerups.Length; i++) //Instantiate the Shop.
         {

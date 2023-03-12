@@ -6019,6 +6019,7 @@ MonoBehaviour:
   tokenCost: {fileID: 1608155908}
   title: {fileID: 508647265}
   thumbnail: {fileID: 245796689}
+  redKeyTotal: {fileID: 721387501}
   shoplist: {fileID: 1375247368}
   powerups:
   - Dot Bomb
@@ -6227,7 +6228,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1338349970}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.78423756
+  m_Size: 0.7842375
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
