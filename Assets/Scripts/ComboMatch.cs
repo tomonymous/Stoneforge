@@ -524,7 +524,6 @@ public class ComboMatch : MonoBehaviour
         {
             buggedPowerUp = GameObject.Find(powerups.Length-1 + " powerup");
             Destroy(buggedPowerUp);
-            Debug.Log("YUP");
             int i = powerups.Length - 1;
             GameObject s = Instantiate(shopItem, shoplist);
             ShopItem item = shopItem.GetComponent<ShopItem>();
@@ -536,7 +535,6 @@ public class ComboMatch : MonoBehaviour
             if (PlayerPrefs.GetInt(key, 0) != 1)
             {
                 item.itemLock.gameObject.SetActive(true);
-                Debug.Log("LOCKED");
             }
         }
         int topIndex = 0; //move unlocked powerups to the top
