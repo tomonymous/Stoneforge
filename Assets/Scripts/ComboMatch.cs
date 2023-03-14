@@ -1460,6 +1460,8 @@ public class ComboMatch : MonoBehaviour
                 {
                     PlayerPrefs.SetInt("ChaosGold", chaosGold);
                 }
+
+                /*
                 for (int i = 0; i < chaosUnlockGoals.Length; i++) //unlock anything goal achieved. show unlock panels.
                 {
                     if (i < 4 && MoveCounter.movesMade >= chaosUnlockGoals[i] && PlayerPrefs.GetInt("Piece" + i + "Chaos") != 1)
@@ -1475,7 +1477,7 @@ public class ComboMatch : MonoBehaviour
 
                     }
                 }
-
+                */
             }
 
             else if (zenMode)
@@ -1617,7 +1619,7 @@ public class ComboMatch : MonoBehaviour
                         PlayerPrefs.SetInt("HighScore3", score);
                     }
                 }
-
+                /*
                 for (int i = 0; i < unlockGoals.Length; i++) //unlock anything goal achieved. show unlock panels.
                 {
                     if (MoveCounter.movesMade >= unlockGoals[i] && PlayerPrefs.GetInt("Piece" + i + "Unlocked") != 1)
@@ -1632,6 +1634,7 @@ public class ComboMatch : MonoBehaviour
                         //item.gameObject.name = i.ToString();
                     }
                 }
+                */
             }
             FindObjectOfType<GameManager>().EnableEndgameButtons();
 
@@ -1740,7 +1743,7 @@ public class ComboMatch : MonoBehaviour
 
         //    }
         //}
-
+        /*
         for (int i = 0; i < unlockGoals.Length; i++) //Instantiating Unlock Items at start due to random issues when doing at the end of game THAT DON'T MAKE SENSE
         {
             GameObject s = Instantiate(unlockItem, unlockGrid);
@@ -1777,6 +1780,7 @@ public class ComboMatch : MonoBehaviour
                 item.gameObject.name = "Chaos"+i.ToString();
             }
         }
+        */
     }
 
     public void SaveGame()
