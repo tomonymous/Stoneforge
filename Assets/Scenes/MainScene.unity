@@ -12423,7 +12423,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 490796c17e930b040ad974259ee6cddd, type: 3}
   powerups:
   - Slow Time
-  - Disable Timer
+  - Stop Timer
   - Black Bomb
   - Black Stop
   - Dot Bomb
@@ -12656,7 +12656,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 493628671}
   m_Direction: 2
   m_Value: 0.9999999
-  m_Size: 0.33424997
+  m_Size: 0.33425
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

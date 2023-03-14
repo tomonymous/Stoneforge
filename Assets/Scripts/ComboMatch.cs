@@ -499,6 +499,10 @@ public class ComboMatch : MonoBehaviour
             ShopItem item = shopItem.GetComponent<ShopItem>();
             item.Initialize(i, powerupSprites[i], powerups[i], powerupDescriptions[i], tokenPrices[i]);
             item.gameObject.SetActive(true);
+            if(item.name.Substring(0, 4) != "time")
+            {
+                item.name = i + " powerup";
+            }
             item.itemLock.gameObject.SetActive(false);
             if (i == 0 || i == 2)
             {
@@ -513,13 +517,27 @@ public class ComboMatch : MonoBehaviour
             {
                 item.itemLock.gameObject.SetActive(false);
             }
-            if (i == 11 && PlayerPrefs.GetInt("CurrentLevel", 0) < 11) //crate powerup (last in powerup array) activates when not unlocked(WHY?) This prevents that.
+        }
+        //DETECT AND RECTIFY BUGGED POWERUP
+        GameObject buggedPowerUp = GameObject.Find("Shop Item(Clone)");
+        if(buggedPowerUp != null)
+        {
+            buggedPowerUp = GameObject.Find(powerups.Length-1 + " powerup");
+            Destroy(buggedPowerUp);
+            Debug.Log("YUP");
+            int i = powerups.Length - 1;
+            GameObject s = Instantiate(shopItem, shoplist);
+            ShopItem item = shopItem.GetComponent<ShopItem>();
+            item.Initialize(i, powerupSprites[i], powerups[i], powerupDescriptions[i], tokenPrices[i]);
+            item.gameObject.SetActive(true);
+            item.name = i + " powerup";
+            item.itemLock.gameObject.SetActive(false);
+            string key = powerups[i] + " Unlocked";
+            if (PlayerPrefs.GetInt(key, 0) != 1)
             {
                 item.itemLock.gameObject.SetActive(true);
+                Debug.Log("LOCKED");
             }
-
-
-
         }
         int topIndex = 0; //move unlocked powerups to the top
         foreach (Transform child in shoplist) 

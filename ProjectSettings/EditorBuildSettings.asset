@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Statistics.unity
     guid: f2877a789d2cf834ea723329111789ae
+  - enabled: 1
+    path: Assets/Scenes/PowerUpShop.unity
+    guid: 0b6635ade8c1a58468e837a6e08f487c
   m_configObjects: {}

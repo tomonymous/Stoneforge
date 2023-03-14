@@ -71,6 +71,10 @@ public class MenuButtonsScript : MonoBehaviour
         FindObjectOfType<AudioManager>().Play("switch");
         SceneManager.LoadScene(4);
     }
-
+    public void PowerUps()
+    {
+        FindObjectOfType<AudioManager>().Play("switch");
+        SceneManager.LoadScene(5);
+    }
 
 }

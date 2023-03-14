@@ -2799,9 +2799,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1339598611}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Menu
+      - m_Target: {fileID: 2031014293}
+        m_TargetAssemblyTypeName: PowerUpShopScript, Assembly-CSharp
+        m_MethodName: RefundAll
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3616,9 +3616,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1339598611}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Menu
+      - m_Target: {fileID: 2031014293}
+        m_TargetAssemblyTypeName: PowerUpShopScript, Assembly-CSharp
+        m_MethodName: BuyPowerup
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6014,6 +6014,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   infoPanel: {fileID: 606442905}
+  buyButton: {fileID: 1190861860}
+  keyCostPanel: {fileID: 68517674}
   description: {fileID: 1421137705}
   keyCost: {fileID: 763601579}
   tokenCost: {fileID: 1608155908}
@@ -6022,47 +6024,49 @@ MonoBehaviour:
   redKeyTotal: {fileID: 721387501}
   shoplist: {fileID: 1375247368}
   powerups:
-  - Dot Bomb
-  - Row Bomb
   - Slow Timer
   - Stop Timer
-  - Crazy Bomb
   - Black Bomb
   - Black Stop
-  - More Crates
-  - Magic Touch
+  - Dot Bomb
   - Extra Turn
-  - Disarm
+  - Magic Touch
+  - Crazy Bomb
   - Gold Bomb
+  - Row Bomb
+  - Disarm
+  - More Crates
   powerupDescriptions:
-  - Destroys a single selected stone.
-  - Destroys a selected row of stones.
   - Adds 3 seconds to the timer for 20 moves.
   - Take your time! The timer is broken for the next 20 moves.
-  - Destroys all black, white, blue and orange stones.
   - Destroys all black stones.
   - Stops black stones from spawning for the next 20 moves.
-  - Making a blue stone match will guarantee a crate for the next 20 moves.
-  - Instantly upgrades the next stone you touch.
+  - Destroys a single selected stone.
   - Increases Turns Remaining by 1.
-  - Eradicates any active TNT on the board.
+  - Instantly upgrades the next stone you touch.
+  - Destroys all black, white, blue and orange stones.
   - Destroys all gold stones.
+  - Destroys a selected row of stones.
+  - Eradicates any active TNT on the board.
+  - Making a blue stone match will guarantee a crate for the next 20 moves.
   powerupCosts: 0500000005000000050000000a0000000f0000000a0000000a0000000a0000000f0000000a0000000500000014000000
-  tokenPrices: 0300000001000000030000000a00000014000000080000000a0000000a000000140000000a000000020000001e000000
+  powerupOwned: 
+  tokenPrices: 030000000a000000080000000a000000030000000a00000014000000140000001e00000001000000020000000a000000
   powerupSprites:
-  - {fileID: 21300000, guid: eaecea1b8592acf40b6aa6c7167a9af7, type: 3}
-  - {fileID: 21300000, guid: a8c7f3f8a7670584e890ae4e538f6523, type: 3}
   - {fileID: 21300000, guid: 297210d5c239399449c2db883aacbcbc, type: 3}
   - {fileID: 21300000, guid: 62d3febc74bebc94fa32768710bc2dc1, type: 3}
-  - {fileID: 21300000, guid: 85e4f3e69f0d73c41829d4194cb76b92, type: 3}
   - {fileID: 21300000, guid: 08451f5e364364a4681c431434d53955, type: 3}
   - {fileID: 21300000, guid: 69a1064f49299f84a8446a3b01b0577e, type: 3}
-  - {fileID: 21300000, guid: 490796c17e930b040ad974259ee6cddd, type: 3}
-  - {fileID: 21300000, guid: d8aeb33b48c14584ba40397a51b78110, type: 3}
+  - {fileID: 21300000, guid: eaecea1b8592acf40b6aa6c7167a9af7, type: 3}
   - {fileID: 21300000, guid: 934befa11a1b83842a55c35e872437db, type: 3}
-  - {fileID: 21300000, guid: 7256ebe9156426c49b41272050b2a391, type: 3}
+  - {fileID: 21300000, guid: d8aeb33b48c14584ba40397a51b78110, type: 3}
+  - {fileID: 21300000, guid: 85e4f3e69f0d73c41829d4194cb76b92, type: 3}
   - {fileID: 21300000, guid: 13af0af5c0400e445af7887f16a10497, type: 3}
-  powerUpShopItem: {fileID: 8628698836152663039, guid: 8934ce0cebe3eae439db83e934849adb,
+  - {fileID: 21300000, guid: a8c7f3f8a7670584e890ae4e538f6523, type: 3}
+  - {fileID: 21300000, guid: 7256ebe9156426c49b41272050b2a391, type: 3}
+  - {fileID: 21300000, guid: 490796c17e930b040ad974259ee6cddd, type: 3}
+  selectedPowerup: 0
+  powerUpShopItem: {fileID: 8002270253334679472, guid: 8934ce0cebe3eae439db83e934849adb,
     type: 3}
 --- !u!1 &2082285599
 GameObject:
@@ -6227,7 +6231,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1338349971}
   m_HandleRect: {fileID: 1338349970}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0.9999997
   m_Size: 0.7842375
   m_NumberOfSteps: 0
   m_OnValueChanged:
