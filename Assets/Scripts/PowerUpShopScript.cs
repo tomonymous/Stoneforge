@@ -14,6 +14,7 @@ public class PowerUpShopScript : MonoBehaviour
     public TextMeshProUGUI tokenCost;
     public TextMeshProUGUI title;
     public Image thumbnail;
+    public Image powerUpSlotThumbnail;
 
     public TextMeshProUGUI redKeyTotal;
 
@@ -24,6 +25,7 @@ public class PowerUpShopScript : MonoBehaviour
     public bool[] powerupOwned;
     public int[] tokenPrices;
     public Sprite[] powerupSprites;
+    public Sprite[] powerupSlotSprites;
     public int selectedPowerup;
 
     [Header("Prefabs")]
@@ -107,9 +109,9 @@ public class PowerUpShopScript : MonoBehaviour
     {
         int cost = powerupCosts[selectedPowerup];
         int wallet = PlayerPrefs.GetInt("RedKeys", 0);
-
         if (cost <= wallet)
         {
+            FindObjectOfType<AudioManager>().Play("Buy");
             PlayerPrefs.SetInt("RedKeys", wallet - cost);
             PlayerPrefs.SetInt("TotalRedKeysSpent", PlayerPrefs.GetInt("TotalRedKeysSpent", 0) + cost);
             redKeyTotal.text = PlayerPrefs.GetInt("RedKeys", 0).ToString("000000000");
@@ -118,29 +120,41 @@ public class PowerUpShopScript : MonoBehaviour
             GameObject powerUp = GameObject.Find(selectedPowerup + " powerup(Clone)");
             powerUp.GetComponent<PowerUpShopItem>().Buy();
         }
+        else
+        {
+            FindObjectOfType<AudioManager>().Play("CantAfford");
+        }
         QuitInfo();
     }
 
     public void RefundAll()
     {
-        infoPanel.SetActive(false);
-        for (int i = 0; i < powerups.Length; i++) 
+        if (PlayerPrefs.GetInt("TotalRedKeysSpent", 0) > 0)
         {
-            if(i == 0 || i== 2)
+            infoPanel.SetActive(false);
+            FindObjectOfType<AudioManager>().Play("Refund");
+            for (int i = 0; i < powerups.Length; i++)
             {
-                continue;
+                if (i == 0 || i == 2)
+                {
+                    continue;
+                }
+                string key = powerups[i] + " Unlocked";
+                PlayerPrefs.SetInt(key, 0);
+                GameObject powerUp = GameObject.Find(i + " powerup(Clone)");
+                if (powerUp != null)
+                {
+                    powerUp.GetComponent<PowerUpShopItem>().Sell();
+                }
             }
-            string key = powerups[i] + " Unlocked";
-            PlayerPrefs.SetInt(key, 0);
-            GameObject powerUp = GameObject.Find(i + " powerup(Clone)");
-            if (powerUp != null)
-            {
-                powerUp.GetComponent<PowerUpShopItem>().Sell();
-            }
+            PlayerPrefs.SetInt("RedKeys", PlayerPrefs.GetInt("RedKeys", 0) + PlayerPrefs.GetInt("TotalRedKeysSpent", 0));
+            PlayerPrefs.SetInt("TotalRedKeysSpent", 0);
+            redKeyTotal.text = PlayerPrefs.GetInt("RedKeys", 0).ToString("000000000");
         }
-        PlayerPrefs.SetInt("RedKeys", PlayerPrefs.GetInt("RedKeys", 0) + PlayerPrefs.GetInt("TotalRedKeysSpent", 0));
-        PlayerPrefs.SetInt("TotalRedKeysSpent", 0);
-        redKeyTotal.text = PlayerPrefs.GetInt("RedKeys", 0).ToString("000000000");
+        else
+        {
+            FindObjectOfType<AudioManager>().Play("CantAfford");
+        }
         selectedPowerup = -1;
     }
 }

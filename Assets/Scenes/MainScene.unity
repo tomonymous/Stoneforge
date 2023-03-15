@@ -12655,8 +12655,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 493628672}
   m_HandleRect: {fileID: 493628671}
   m_Direction: 2
-  m_Value: 0.9999999
-  m_Size: 0.33425
+  m_Value: 1
+  m_Size: 0.33425003
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -15540,7 +15540,7 @@ PrefabInstance:
     - target: {fileID: 3846215974104988523, guid: 05706b9b3b7a3644d87f27e8ce334600,
         type: 3}
       propertyPath: sounds.Array.size
-      value: 29
+      value: 31
       objectReference: {fileID: 0}
     - target: {fileID: 3846215974104988523, guid: 05706b9b3b7a3644d87f27e8ce334600,
         type: 3}
@@ -15564,12 +15564,42 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3846215974104988523, guid: 05706b9b3b7a3644d87f27e8ce334600,
         type: 3}
+      propertyPath: sounds.Array.data[29].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 8cf6bf78bdf538f4cae958862b6104e5, type: 3}
+    - target: {fileID: 3846215974104988523, guid: 05706b9b3b7a3644d87f27e8ce334600,
+        type: 3}
+      propertyPath: sounds.Array.data[29].name
+      value: Buy
+      objectReference: {fileID: 0}
+    - target: {fileID: 3846215974104988523, guid: 05706b9b3b7a3644d87f27e8ce334600,
+        type: 3}
+      propertyPath: sounds.Array.data[30].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 60832786ebbc2ed40800d4a58d8c19cc, type: 3}
+    - target: {fileID: 3846215974104988523, guid: 05706b9b3b7a3644d87f27e8ce334600,
+        type: 3}
+      propertyPath: sounds.Array.data[30].name
+      value: Refund
+      objectReference: {fileID: 0}
+    - target: {fileID: 3846215974104988523, guid: 05706b9b3b7a3644d87f27e8ce334600,
+        type: 3}
       propertyPath: sounds.Array.data[27].pitch
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3846215974104988523, guid: 05706b9b3b7a3644d87f27e8ce334600,
         type: 3}
       propertyPath: sounds.Array.data[28].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3846215974104988523, guid: 05706b9b3b7a3644d87f27e8ce334600,
+        type: 3}
+      propertyPath: sounds.Array.data[29].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3846215974104988523, guid: 05706b9b3b7a3644d87f27e8ce334600,
+        type: 3}
+      propertyPath: sounds.Array.data[30].pitch
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3846215974104988523, guid: 05706b9b3b7a3644d87f27e8ce334600,
@@ -15584,6 +15614,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3846215974104988523, guid: 05706b9b3b7a3644d87f27e8ce334600,
         type: 3}
+      propertyPath: sounds.Array.data[29].volume
+      value: 0.703
+      objectReference: {fileID: 0}
+    - target: {fileID: 3846215974104988523, guid: 05706b9b3b7a3644d87f27e8ce334600,
+        type: 3}
+      propertyPath: sounds.Array.data[30].volume
+      value: 0.703
+      objectReference: {fileID: 0}
+    - target: {fileID: 3846215974104988523, guid: 05706b9b3b7a3644d87f27e8ce334600,
+        type: 3}
       propertyPath: sounds.Array.data[27].mixerGroup
       value: 
       objectReference: {fileID: 24300002, guid: ac8481a3e29235546b660d32056d8743,
@@ -15591,6 +15631,18 @@ PrefabInstance:
     - target: {fileID: 3846215974104988523, guid: 05706b9b3b7a3644d87f27e8ce334600,
         type: 3}
       propertyPath: sounds.Array.data[28].mixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: ac8481a3e29235546b660d32056d8743,
+        type: 2}
+    - target: {fileID: 3846215974104988523, guid: 05706b9b3b7a3644d87f27e8ce334600,
+        type: 3}
+      propertyPath: sounds.Array.data[29].mixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: ac8481a3e29235546b660d32056d8743,
+        type: 2}
+    - target: {fileID: 3846215974104988523, guid: 05706b9b3b7a3644d87f27e8ce334600,
+        type: 3}
+      propertyPath: sounds.Array.data[30].mixerGroup
       value: 
       objectReference: {fileID: 24300002, guid: ac8481a3e29235546b660d32056d8743,
         type: 2}

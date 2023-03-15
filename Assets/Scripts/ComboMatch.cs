@@ -110,7 +110,7 @@ public class ComboMatch : MonoBehaviour
     static float scoringWaitTimer = 1000f;
     static float tutorialWaitTimer = 0f;
 
-    int maxLevel = 27;
+    //int maxLevel = 27;
     int latestTokenDescription;
     int inventorySlots = 1;
     int chaosGold = 0;
@@ -547,18 +547,7 @@ public class ComboMatch : MonoBehaviour
                 topIndex++;
             }
         }
-        for(int i = 2; i<=8; i++)
-        {
-            int unlockcheck = PlayerPrefs.GetInt("Slot " + i + " Unlocked", 0);
-            if(unlockcheck == 1)
-            {
-                inventorySlots = i;
-            }
-            else
-            {
-                break;
-            }
-        }
+        inventorySlots = PlayerPrefs.GetInt("InventorySlots", 1);
         selectedPowerups.text = inventoryCheck.Count + "/" + inventorySlots + " SELECTED";
 
 
@@ -2203,7 +2192,6 @@ public class ComboMatch : MonoBehaviour
         }
         int number = MoveCounter.movesMade;  // Count moves made for Blue Key conversion.
         movesEndCount = 0;
-        number = 45;
         audioManager.Play("Count");
         MoveCounter.movesMade = movesEndCount;
         float timePerDecrement = 1.5f / number;
