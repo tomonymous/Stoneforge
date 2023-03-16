@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public bool resume = false;
     public float restartDelay = 5f;
     public GameObject gameOverMenu;
+    public GameObject modeMenu;
     public GameObject shopMenu;
     public GameObject pauseMenu;
     public Button settingsButton;

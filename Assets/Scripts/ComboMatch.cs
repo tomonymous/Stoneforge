@@ -21,6 +21,8 @@ public class ComboMatch : MonoBehaviour
     public Button settingsButton;
     public Toggle chaos;
     public Toggle zen;
+    public Toggle timed;
+    public TextMeshProUGUI modeDescription;
     public Slider redKeyBar;
     public int redBarCount;
     public Slider blueKeyBar;
@@ -30,7 +32,6 @@ public class ComboMatch : MonoBehaviour
     public Image timerImage;
     public Image timerBackgroundImage;
     public GameObject timerBreak;
-    public GameObject chaosPanel;
     public GameObject movesHighScorePanel;
     public GameObject pointsHighScorePanel;
     public GameObject chaosGoldPanel;
@@ -403,7 +404,7 @@ public class ComboMatch : MonoBehaviour
 
         audioManager = FindObjectOfType<AudioManager>();
         armedButNotFired = false;
-        zenMode = false;
+        zenMode = true;
         timerImage.sprite = pieces[pieces.Length - 1];
         timerBackgroundImage.sprite = pieces[pieces.Length - 1];
         popups = new HashSet<string>();
@@ -418,14 +419,6 @@ public class ComboMatch : MonoBehaviour
         haveTempPowerUp = false;
         chaosMode = false;
         spread = false;
-        if(PlayerPrefs.GetInt("Chaos Mode Unlocked") == 1)
-        {
-            chaosPanel.SetActive(true);
-        }
-        else
-        {
-            chaosPanel.SetActive(false);
-        }
         if (zenMode)
         {
             timerBroken = 1;
@@ -459,7 +452,8 @@ public class ComboMatch : MonoBehaviour
         FindObjectOfType<TurnTracker>().Reset();
         FindObjectOfType<GameManager>().gameOverMenu.SetActive(false);
         FindObjectOfType<GameManager>().pauseMenu.SetActive(false);
-        FindObjectOfType<GameManager>().shopMenu.SetActive(true);
+        FindObjectOfType<GameManager>().shopMenu.SetActive(false);
+        FindObjectOfType<GameManager>().modeMenu.SetActive(true);
         settingsButton.interactable = false;
         chaosGoldPanel.SetActive(false);
         movesHighScorePanel.SetActive(false);
@@ -478,7 +472,6 @@ public class ComboMatch : MonoBehaviour
         InitializeBoard();
         VerifyBoard();
         InstantiateBoard();
-
         //string inv = PlayerPrefs.GetString("Inventory");
         //for (int i = 0; i < inv.Length; i++)
         //{
@@ -535,16 +528,6 @@ public class ComboMatch : MonoBehaviour
             if (PlayerPrefs.GetInt(key, 0) != 1)
             {
                 item.itemLock.gameObject.SetActive(true);
-            }
-        }
-        int topIndex = 0; //move unlocked powerups to the top
-        foreach (Transform child in shoplist) 
-        {
-            ShopItem s = child.GetComponent<ShopItem>();
-            if (!s.itemLock.IsActive())
-            {
-                child.SetSiblingIndex(topIndex);
-                topIndex++;
             }
         }
         inventorySlots = PlayerPrefs.GetInt("InventorySlots", 1);
@@ -1984,10 +1967,25 @@ public class ComboMatch : MonoBehaviour
     {
         if (enabled)
         {
+            modeDescription.text = "[HARD] A fast timer with explosive consequences. How many of your Stones can you protect?";
             chaosMode = true;
+            zenMode = false;
             zenDescriptionPanel.SetActive(false);
             chaosDescriptionPanel.SetActive(true);
             zen.isOn = false;
+            timed.isOn = false;
+            chaos.isOn = true;
+            chaos.interactable = false;
+            zen.interactable = true;
+            timed.interactable = true;
+            foreach (Transform node in gameboard)
+            {
+                Destroy(node.gameObject);
+            }
+            InitializeBoard();
+            VerifyBoard();
+            InstantiateBoard();
+            timerBreak.SetActive(false);
             foreach (Transform child in shoplist)
             {
                 if(child.gameObject.name.Substring(0,4) == "time")
@@ -1997,31 +1995,8 @@ public class ComboMatch : MonoBehaviour
                     child.gameObject.SetActive(false);
                 }
             }
-            foreach (Transform child in inventory)
-            {
-                if (child.gameObject.name.Substring(0, 4) == "time")
-                {
-                    Destroy(child.gameObject);
-                }
-            }
-            inventoryCheck.Remove(0);
-            inventoryCheck.Remove(1);
+
             selectedPowerups.text = inventoryCheck.Count + "/" + inventorySlots + " SELECTED";
-        }
-        if (!enabled)
-        {
-            chaosMode = false;
-            chaosDescriptionPanel.SetActive(false);
-            if (!zenMode)
-            {
-                foreach (Transform child in shoplist)
-                {
-                    if (child.gameObject.name.Substring(0, 4) == "time")
-                    {
-                        child.gameObject.SetActive(true);
-                    }
-                }
-            }
         }
 
         
@@ -2032,10 +2007,16 @@ public class ComboMatch : MonoBehaviour
         {
             zenDescriptionPanel.SetActive(true);
             chaosDescriptionPanel.SetActive(false);
+            modeDescription.text = "Fewer stones, but not timer. Battle against limited space to make moves and upgrade Stones.";
             zenMode = true;
             timerBreak.SetActive(true);
             chaos.isOn = false;
-            foreach(Transform node in gameboard)
+            timed.isOn = false;
+            zen.isOn = true;
+            chaos.interactable = true;
+            timed.interactable = true;
+            zen.interactable = false;
+            foreach (Transform node in gameboard)
             {
                 Destroy(node.gameObject);
                 
@@ -2066,34 +2047,73 @@ public class ComboMatch : MonoBehaviour
             inventoryCheck.Remove(1);
             selectedPowerups.text = inventoryCheck.Count + "/" + inventorySlots + " SELECTED";
         }
-        if (!enabled)
+        
+    }
+
+    public void TimedClicked(bool enabled)
+    {
+        if (enabled)
         {
+            modeDescription.text = "Let the timer run down and you'll lose a Stone! Make a move to reset it.";
+            chaosMode = false;
             zenMode = false;
-            zenDescriptionPanel.SetActive(false);
-            timerBreak.SetActive(false);
+            timed.interactable = false;
+            chaos.interactable = true;
+            zen.interactable = true;
+            chaos.isOn = false;
+            zen.isOn = false;
             foreach (Transform node in gameboard)
             {
                 Destroy(node.gameObject);
-
-
             }
             InitializeBoard();
             VerifyBoard();
             InstantiateBoard();
-            if (!chaosMode)
+            timerBreak.SetActive(false);
+            foreach (Transform child in shoplist)
             {
-                foreach (Transform child in shoplist)
+                if (child.gameObject.name.Substring(0, 4) == "time")
                 {
-                    if (child.gameObject.name.Substring(0, 4) == "time")
-                    {
-                        child.gameObject.SetActive(true);
-                    }
+                    child.gameObject.SetActive(true);
                 }
             }
         }
-
-        
     }
+
+    public void ModeNextButton()
+    {
+        FindObjectOfType<GameManager>().shopMenu.SetActive(true);
+        FindObjectOfType<GameManager>().modeMenu.SetActive(false);
+        if (zenMode)
+        {
+            foreach (Transform child in shoplist)
+            {
+                if (child.gameObject.name.Substring(0, 4) == "time")
+                {
+                    ShopItem i = child.GetComponent<ShopItem>();
+                    i.selected.gameObject.SetActive(false);
+                    child.gameObject.SetActive(false);
+
+                }
+            }
+        }
+        int topIndex = 0; //move unlocked powerups to the top
+        foreach (Transform child in shoplist)
+        {
+            ShopItem s = child.GetComponent<ShopItem>();
+            if (s.gameObject.activeSelf && !s.itemLock.IsActive())
+            {
+                child.SetSiblingIndex(topIndex);
+                topIndex++;
+            }
+        }
+        if(inventorySlots > topIndex)
+        {
+            inventorySlots = topIndex;
+            selectedPowerups.text = inventoryCheck.Count + "/" + inventorySlots + " SELECTED";
+        }
+    }
+
     private void CreateExplosion(string size, Vector2 pos)
     {
 
