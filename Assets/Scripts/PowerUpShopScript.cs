@@ -9,6 +9,7 @@ public class PowerUpShopScript : MonoBehaviour
     public GameObject infoPanel;
     public GameObject buyButton;
     public GameObject keyCostPanel;
+    public GameObject tokenDisplay;
     public TextMeshProUGUI description;
     public TextMeshProUGUI keyCost;
     public TextMeshProUGUI tokenCost;
@@ -21,7 +22,6 @@ public class PowerUpShopScript : MonoBehaviour
     public RectTransform shoplist;
     public string[] powerups;
     public string[] powerupDescriptions;
-    public int[] powerupCosts;
     public bool[] powerupOwned;
     public int[] tokenPrices;
     public Sprite[] powerupSprites;
@@ -35,6 +35,7 @@ public class PowerUpShopScript : MonoBehaviour
     {
         //PlayerPrefs.SetInt("RedKeys", 20);
         redKeyTotal.text = PlayerPrefs.GetInt("RedKeys", 0).ToString("000000000");
+        powerUpSlotThumbnail.sprite = powerupSlotSprites[PlayerPrefs.GetInt("InventorySlots", 1) - 1];
         infoPanel.SetActive(false);
         for (int i = 0; i < powerups.Length; i++) //Instantiate the Shop.
         {
@@ -86,7 +87,7 @@ public class PowerUpShopScript : MonoBehaviour
     {
         FindObjectOfType<AudioManager>().Play("switch");
         description.text = powerupDescriptions[i];
-        keyCost.text = powerupCosts[i].ToString("00000");
+        keyCost.text = (5 + 10 * PlayerPrefs.GetInt("PowerUpPurchases", 0)).ToString("00000");
         tokenCost.text = tokenPrices[i].ToString("00");
         title.text = powerups[i];
         thumbnail.sprite = powerupSprites[i];
@@ -102,23 +103,65 @@ public class PowerUpShopScript : MonoBehaviour
             buyButton.SetActive(true);
             keyCostPanel.SetActive(true);
         }
+
+        tokenDisplay.SetActive(true);
+        infoPanel.SetActive(true);
+    }
+
+    public void SelectExtraSlot()
+    {
+        FindObjectOfType<AudioManager>().Play("switch");
+        description.text = "Equip " + (PlayerPrefs.GetInt("InventorySlots", 1) + 1) + " different Power Ups in a game.";
+        int cost = 10;
+        keyCost.text = cost.ToString("00000");
+        title.text = "Extra Slot";
+        thumbnail.sprite = powerupSlotSprites[PlayerPrefs.GetInt("InventorySlots", 1) - 1];
+        selectedPowerup = -2;
+        int invSlotsPurchased = PlayerPrefs.GetInt("InventorySlots", 1) - 1;
+        int powerUpsOwned = PlayerPrefs.GetInt("PowerUpPurchases", 0) - invSlotsPurchased + 2;
+        if (PlayerPrefs.GetInt("InventorySlots", 1) > 6 || powerUpsOwned <= invSlotsPurchased + 1)
+        {
+            buyButton.SetActive(false);
+            keyCostPanel.SetActive(false);
+        }
+        else
+        {
+            buyButton.SetActive(true);
+            keyCostPanel.SetActive(true);
+        }
+        tokenDisplay.SetActive(false);
         infoPanel.SetActive(true);
     }
 
     public void BuyPowerup()
     {
-        int cost = powerupCosts[selectedPowerup];
+
+        int cost = 5 + 10 * PlayerPrefs.GetInt("PowerUpPurchases", 0);
         int wallet = PlayerPrefs.GetInt("RedKeys", 0);
         if (cost <= wallet)
         {
-            FindObjectOfType<AudioManager>().Play("Buy");
-            PlayerPrefs.SetInt("RedKeys", wallet - cost);
-            PlayerPrefs.SetInt("TotalRedKeysSpent", PlayerPrefs.GetInt("TotalRedKeysSpent", 0) + cost);
-            redKeyTotal.text = PlayerPrefs.GetInt("RedKeys", 0).ToString("000000000");
-            string key = powerups[selectedPowerup] + " Unlocked";
-            PlayerPrefs.SetInt(key, 1); //1 is unlocked. 0 is locked.
-            GameObject powerUp = GameObject.Find(selectedPowerup + " powerup(Clone)");
-            powerUp.GetComponent<PowerUpShopItem>().Buy();
+            if (selectedPowerup == -2) //if extra slot selected.
+            {
+                FindObjectOfType<AudioManager>().Play("Buy");
+                PlayerPrefs.SetInt("RedKeys", wallet - cost);
+                PlayerPrefs.SetInt("TotalRedKeysSpent", PlayerPrefs.GetInt("TotalRedKeysSpent", 0) + cost);
+                redKeyTotal.text = PlayerPrefs.GetInt("RedKeys", 0).ToString("000000000");
+                PlayerPrefs.SetInt("InventorySlots", PlayerPrefs.GetInt("InventorySlots", 1) + 1);
+                powerUpSlotThumbnail.sprite = powerupSlotSprites[PlayerPrefs.GetInt("InventorySlots", 1) - 1];
+                PlayerPrefs.SetInt("PowerUpPurchases", PlayerPrefs.GetInt("PowerUpPurchases", 0) + 1);
+            }
+            else
+            {
+                FindObjectOfType<AudioManager>().Play("Buy");
+                PlayerPrefs.SetInt("RedKeys", wallet - cost);
+                PlayerPrefs.SetInt("TotalRedKeysSpent", PlayerPrefs.GetInt("TotalRedKeysSpent", 0) + cost);
+                redKeyTotal.text = PlayerPrefs.GetInt("RedKeys", 0).ToString("000000000");
+                string key = powerups[selectedPowerup] + " Unlocked";
+                PlayerPrefs.SetInt(key, 1); //1 is unlocked. 0 is locked.
+                GameObject powerUp = GameObject.Find(selectedPowerup + " powerup(Clone)");
+                powerUp.GetComponent<PowerUpShopItem>().Buy();
+                PlayerPrefs.SetInt("PowerUpPurchases", PlayerPrefs.GetInt("PowerUpPurchases", 0) + 1);
+            }
         }
         else
         {
@@ -149,7 +192,10 @@ public class PowerUpShopScript : MonoBehaviour
             }
             PlayerPrefs.SetInt("RedKeys", PlayerPrefs.GetInt("RedKeys", 0) + PlayerPrefs.GetInt("TotalRedKeysSpent", 0));
             PlayerPrefs.SetInt("TotalRedKeysSpent", 0);
+            PlayerPrefs.SetInt("PowerUpPurchases", 0);
             redKeyTotal.text = PlayerPrefs.GetInt("RedKeys", 0).ToString("000000000");
+            PlayerPrefs.SetInt("InventorySlots", 1);
+            powerUpSlotThumbnail.sprite = powerupSlotSprites[PlayerPrefs.GetInt("InventorySlots", 1) - 1];
         }
         else
         {

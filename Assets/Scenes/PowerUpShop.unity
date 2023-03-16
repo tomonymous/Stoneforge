@@ -4719,7 +4719,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 1.6874923, y: 0}
-  m_SizeDelta: {x: 240, y: 484.6516}
+  m_SizeDelta: {x: 240, y: 340.6}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1375247369
 MonoBehaviour:
@@ -6586,6 +6586,7 @@ MonoBehaviour:
   infoPanel: {fileID: 606442905}
   buyButton: {fileID: 1190861860}
   keyCostPanel: {fileID: 68517674}
+  tokenDisplay: {fileID: 1407402509}
   description: {fileID: 1421137705}
   keyCost: {fileID: 763601579}
   tokenCost: {fileID: 1608155908}
@@ -6620,7 +6621,6 @@ MonoBehaviour:
   - Destroys a selected row of stones.
   - Eradicates any active TNT on the board.
   - Making a blue stone match will guarantee a crate for the next 20 moves.
-  powerupCosts: 0500000005000000050000000a0000000f0000000a0000000a0000000a0000000f0000000a0000000500000014000000
   powerupOwned: 
   tokenPrices: 030000000a000000080000000a000000030000000a00000014000000140000001e00000001000000020000000a000000
   powerupSprites:
@@ -6811,7 +6811,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1338349970}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.6367359
+  m_Size: 0.90603364
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -7202,9 +7202,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7498274932370065239}
-        m_TargetAssemblyTypeName: PowerUpShopItem, Assembly-CSharp
-        m_MethodName: Select
+      - m_Target: {fileID: 2031014293}
+        m_TargetAssemblyTypeName: PowerUpShopScript, Assembly-CSharp
+        m_MethodName: SelectExtraSlot
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
