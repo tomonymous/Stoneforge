@@ -8304,7 +8304,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Fewer stones, but not timer. Battle against limited space to make moves
+  m_text: Fewer stones, but no timer. Battle against limited space to make moves
     and upgrade Stones.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}

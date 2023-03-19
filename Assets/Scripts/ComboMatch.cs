@@ -186,6 +186,7 @@ public class ComboMatch : MonoBehaviour
         {
             tutorialWaitTimer = 0f;
             tutorialPanel.SetActive(true);
+            FindObjectOfType<GameManager>().modeMenu.SetActive(false);
             tutorialError = false;
             audioManager.tutorial = false;
             for (int y = 0; y < height; y++)
@@ -404,7 +405,10 @@ public class ComboMatch : MonoBehaviour
 
         audioManager = FindObjectOfType<AudioManager>();
         armedButNotFired = false;
-        zenMode = true;
+        if (!audioManager.tutorial)
+        {
+            zenMode = true;
+        }
         timerImage.sprite = pieces[pieces.Length - 1];
         timerBackgroundImage.sprite = pieces[pieces.Length - 1];
         popups = new HashSet<string>();
@@ -2007,7 +2011,7 @@ public class ComboMatch : MonoBehaviour
         {
             zenDescriptionPanel.SetActive(true);
             chaosDescriptionPanel.SetActive(false);
-            modeDescription.text = "Fewer stones, but not timer. Battle against limited space to make moves and upgrade Stones.";
+            modeDescription.text = "Fewer stones, but no timer. Battle against limited space to make moves and upgrade Stones.";
             zenMode = true;
             timerBreak.SetActive(true);
             chaos.isOn = false;

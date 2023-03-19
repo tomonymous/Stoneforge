@@ -53,6 +53,7 @@ public class StatsPanel : MonoBehaviour
     public Text disarm;
     public Text moreCrates;
 
+    public GameObject confirmDelete;
 
     void Start()
     {
@@ -104,7 +105,8 @@ public class StatsPanel : MonoBehaviour
         extraTurn.text = PlayerPrefs.GetInt("ExtraTurn", 0).ToString("N0");
         magicTouch.text = PlayerPrefs.GetInt("MagicTouch", 0).ToString("N0");
         disarm.text = PlayerPrefs.GetInt("Disarm", 0).ToString("N0");
-        moreCrates.text = PlayerPrefs.GetInt("MoreCrates", 0).ToString("N0"); 
+        moreCrates.text = PlayerPrefs.GetInt("MoreCrates", 0).ToString("N0");
+        confirmDelete.SetActive(false);
 
     }
 
@@ -112,5 +114,16 @@ public class StatsPanel : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void ConfirmDelete()
+    {
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.SetInt("FirstTime", 1);
+    }
+
+    public void DeleteAll()
+    {
+        confirmDelete.SetActive(true);
     }
 }

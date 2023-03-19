@@ -70,6 +70,7 @@ public class GameManager : MonoBehaviour
     {
         gameOverMenu.SetActive(false);
         shopMenu.SetActive(false);
+        modeMenu.SetActive(false);
         settingsButton.interactable = true;
         CountdownTimer.timerPaused = false;
     }
