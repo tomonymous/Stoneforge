@@ -131,6 +131,7 @@ public class ComboMatch : MonoBehaviour
     public bool chaosMode = false;
     public bool haveTempPowerUp = false;
     public bool spread;
+    public bool checkedForDuplicates = false;
     public int timerBroken;
     public int armedBombStatus = 0;
     public int armedBombIndexX;
@@ -272,6 +273,10 @@ public class ComboMatch : MonoBehaviour
 
         if (audioManager.resume)
         {
+            zenMode = false;
+            InitializeBoard();
+            VerifyBoard();
+            InstantiateBoard();
             audioManager.resume = false;
             if(PlayerPrefs.GetInt("gameMode") == 3)
             {
@@ -1292,9 +1297,31 @@ public class ComboMatch : MonoBehaviour
         {
             gravityWaitTimer -= 1 * Time.deltaTime;
             saveButton.interactable = false;
+            checkedForDuplicates = false;
         }
         else
         {
+            //Detect and destroy accidental node duplicates when board has settled.
+            if (!checkedForDuplicates)
+            {
+                Dictionary<string, int> nameCounts = new Dictionary<string, int>();
+                foreach (Transform node in gameboard)
+                {
+                    string name = node.gameObject.name;
+                    if (name.StartsWith("Node"))
+                    {
+                        if (nameCounts.ContainsKey(name))
+                        {
+                            Destroy(node.gameObject);
+                        }
+                        else
+                        {
+                            nameCounts.Add(name, 1);
+                        }
+                    }
+                }
+                checkedForDuplicates = true;
+            }
             saveButton.interactable = true;
         }
         if (scoringWaitTimer > 0)
