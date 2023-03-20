@@ -112,7 +112,7 @@ public class PowerUpShopScript : MonoBehaviour
     {
         FindObjectOfType<AudioManager>().Play("switch");
         description.text = "Equip " + (PlayerPrefs.GetInt("InventorySlots", 1) + 1) + " different Power Ups in a game.";
-        int cost = 10;
+        int cost = 5 + 10 * PlayerPrefs.GetInt("PowerUpPurchases", 0);
         keyCost.text = cost.ToString("00000");
         title.text = "Extra Slot";
         thumbnail.sprite = powerupSlotSprites[PlayerPrefs.GetInt("InventorySlots", 1) - 1];

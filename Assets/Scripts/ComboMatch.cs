@@ -274,9 +274,14 @@ public class ComboMatch : MonoBehaviour
         if (audioManager.resume)
         {
             zenMode = false;
+            foreach (Transform node in gameboard)
+            {
+                Destroy(node.gameObject);
+            }
             InitializeBoard();
             VerifyBoard();
             InstantiateBoard();
+            Debug.Log(PlayerPrefs.GetInt("gameMode"));
             audioManager.resume = false;
             if(PlayerPrefs.GetInt("gameMode") == 3)
             {
