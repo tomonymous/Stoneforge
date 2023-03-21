@@ -35,8 +35,6 @@ public class ComboMatch : MonoBehaviour
     public GameObject movesHighScorePanel;
     public GameObject pointsHighScorePanel;
     public GameObject chaosGoldPanel;
-    public GameObject chaosDescriptionPanel;
-    public GameObject zenDescriptionPanel;
     public Text chaosGoldText;
     public Text selectedPowerups;
     public Text tokenNumber;
@@ -499,8 +497,6 @@ public class ComboMatch : MonoBehaviour
         for (int i = 0; i < powerups.Length; i++) //Instantiate the Shop.
         {
             startButton.interactable = false;
-            chaosDescriptionPanel.SetActive(false);
-            zenDescriptionPanel.SetActive(false);
             string key = powerups[i] + " Unlocked";
             GameObject s = Instantiate(shopItem, shoplist);
             ShopItem item = shopItem.GetComponent<ShopItem>();
@@ -2006,8 +2002,6 @@ public class ComboMatch : MonoBehaviour
             modeDescription.text = "[HARD] A fast timer with explosive consequences. How many of your Stones can you protect?";
             chaosMode = true;
             zenMode = false;
-            zenDescriptionPanel.SetActive(false);
-            chaosDescriptionPanel.SetActive(true);
             zen.isOn = false;
             timed.isOn = false;
             chaos.isOn = true;
@@ -2041,8 +2035,6 @@ public class ComboMatch : MonoBehaviour
     {
         if (enabled)
         {
-            zenDescriptionPanel.SetActive(true);
-            chaosDescriptionPanel.SetActive(false);
             modeDescription.text = "Fewer stones, but no timer. Battle against limited space to make moves and upgrade Stones.";
             zenMode = true;
             timerBreak.SetActive(true);
