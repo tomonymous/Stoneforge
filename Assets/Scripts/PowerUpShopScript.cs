@@ -170,6 +170,11 @@ public class PowerUpShopScript : MonoBehaviour
         QuitInfo();
     }
 
+    public void ScrollingShopItems()
+    {
+        infoPanel.SetActive(false);
+    }
+
     public void RefundAll()
     {
         if (PlayerPrefs.GetInt("TotalRedKeysSpent", 0) > 0)
