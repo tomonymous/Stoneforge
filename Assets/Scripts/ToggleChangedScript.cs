@@ -10,12 +10,9 @@ public class ToggleChangedScript : MonoBehaviour
     public GameObject lock1;
     public GameObject lock2;
     public GameObject lock3;
-    public GameObject popUp1;
-    public GameObject popUp2;
-    public GameObject popUp3;
-    public Text levelText;
-    public Text movesText;
-    public Text chaosText;
+    public GameObject infoPanel;
+    public Image thumbnail;
+    public Sprite[] stoneSprites;
 
 
     public Toggle currentSelection
@@ -64,29 +61,20 @@ public class ToggleChangedScript : MonoBehaviour
 
     public void popUp(Button b)
     {
-        if(b.name.Substring(0,5) == "LEVEL")
+        if(b.name == "1")
         {
-            levelText.text = "GET TO" + System.Environment.NewLine + b.name + System.Environment.NewLine + "TO UNLOCK";
-            popUp1.SetActive(true);
-            StartCoroutine(HidePopUp(popUp1));
+            infoPanel.SetActive(true);
+            thumbnail.sprite = stoneSprites[0];
         }
-        else if(b.name.Substring(b.name.Length - 5) == "MOVES" && b.name.Substring(0, 5) != "CHAOS")
+        else if(b.name == "2")
         {
-            movesText.text = "GET TO" + System.Environment.NewLine + b.name + System.Environment.NewLine + "TO UNLOCK";
-            popUp2.SetActive(true);
-            StartCoroutine(HidePopUp(popUp2));
+            infoPanel.SetActive(true);
+            thumbnail.sprite = stoneSprites[1];
         }
-        else if(b.name.Substring(b.name.Length - 4) == "GOLD")
+        else if(b.name == "3")
         {
-            chaosText.text = "FORGE" + System.Environment.NewLine + b.name + " IN" + System.Environment.NewLine + "CHAOS MODE";
-            popUp3.SetActive(true);
-            StartCoroutine(HidePopUp(popUp3));
-        }
-        else if(b.name.Substring(0,5) == "CHAOS")
-        {
-            chaosText.text = b.name.Substring(6) + System.Environment.NewLine +"IN" + System.Environment.NewLine + "CHAOS MODE";
-            popUp3.SetActive(true);
-            StartCoroutine(HidePopUp(popUp3));
+            infoPanel.SetActive(true);
+            thumbnail.sprite = stoneSprites[2];
         }
     }
     IEnumerator HidePopUp(GameObject popUp)
