@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using TMPro;
 
 public class ToggleChangedScript : MonoBehaviour
 {
@@ -11,8 +12,10 @@ public class ToggleChangedScript : MonoBehaviour
     public GameObject lock2;
     public GameObject lock3;
     public GameObject infoPanel;
+    public GameObject infoPanelBackground;
     public Image thumbnail;
     public Sprite[] stoneSprites;
+    public TextMeshProUGUI cost;
 
 
     public Toggle currentSelection
@@ -63,17 +66,23 @@ public class ToggleChangedScript : MonoBehaviour
     {
         if(b.name == "1")
         {
+            cost.text = 4.ToString("000000");
             infoPanel.SetActive(true);
+            infoPanelBackground.SetActive(true);
             thumbnail.sprite = stoneSprites[0];
         }
         else if(b.name == "2")
         {
+            cost.text = 8.ToString("000000");
             infoPanel.SetActive(true);
+            infoPanelBackground.SetActive(true);
             thumbnail.sprite = stoneSprites[1];
         }
         else if(b.name == "3")
         {
+            cost.text = 12.ToString("000000");
             infoPanel.SetActive(true);
+            infoPanelBackground.SetActive(true);
             thumbnail.sprite = stoneSprites[2];
         }
     }
