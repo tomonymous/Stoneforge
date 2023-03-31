@@ -33,15 +33,15 @@ public class ToggleChangedScript : MonoBehaviour
         lock3.SetActive(false);
         int skinNumber = int.Parse(toggleGroup.name.Substring(5));
         skinNumber = skinNumber + 1;
-        if (PlayerPrefs.GetInt("Skin " + skinNumber + " Unlocked") != 1) //Locks skin 1 if not purchased from shop
+        if (PlayerPrefs.GetInt(toggleGroup.name + "A Unlocked") != 1) //Locks skin A
         {
             lock1.SetActive(true);
         }
-        if (PlayerPrefs.GetInt(toggleGroup.name + "Unlocked") != 1) //Locks skin 2 if not earned
+        if (PlayerPrefs.GetInt(toggleGroup.name + "B Unlocked") != 1) //Locks skin B
         {
             lock2.SetActive(true);
         }
-        if (PlayerPrefs.GetInt(toggleGroup.name + "Chaos") != 1) //Locks skin 3 if not earned
+        if (PlayerPrefs.GetInt(toggleGroup.name + "C Unlocked") != 1) //Locks skin C
         {
             lock3.SetActive(true);
         }
@@ -70,6 +70,8 @@ public class ToggleChangedScript : MonoBehaviour
             infoPanel.SetActive(true);
             infoPanelBackground.SetActive(true);
             thumbnail.sprite = stoneSprites[0];
+            thumbnail.name = toggleGroup.name + 'A';
+            FindObjectOfType<SkinSelectScript>().selectedLock = lock1;
         }
         else if(b.name == "2")
         {
@@ -77,6 +79,8 @@ public class ToggleChangedScript : MonoBehaviour
             infoPanel.SetActive(true);
             infoPanelBackground.SetActive(true);
             thumbnail.sprite = stoneSprites[1];
+            thumbnail.name = toggleGroup.name + 'B';
+            FindObjectOfType<SkinSelectScript>().selectedLock = lock2;
         }
         else if(b.name == "3")
         {
@@ -84,8 +88,12 @@ public class ToggleChangedScript : MonoBehaviour
             infoPanel.SetActive(true);
             infoPanelBackground.SetActive(true);
             thumbnail.sprite = stoneSprites[2];
+            thumbnail.name = toggleGroup.name + 'C';
+            FindObjectOfType<SkinSelectScript>().selectedLock = lock3;
         }
     }
+
+
     IEnumerator HidePopUp(GameObject popUp)
     {
         yield return new WaitForSeconds(1);
