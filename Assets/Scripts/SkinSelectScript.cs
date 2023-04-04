@@ -16,6 +16,7 @@ public class SkinSelectScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //PlayerPrefs.SetInt("BlueKeys", 20);
         wallet.text = PlayerPrefs.GetInt("BlueKeys", 0).ToString("000000");
         infoPanelBackground.SetActive(false);
         infoPanel.SetActive(false);
@@ -29,6 +30,7 @@ public class SkinSelectScript : MonoBehaviour
 
     public void CloseInfoPanel()
     {
+        FindObjectOfType<AudioManager>().Play("switch");
         infoPanel.SetActive(false);
         infoPanelBackground.SetActive(false);
     }

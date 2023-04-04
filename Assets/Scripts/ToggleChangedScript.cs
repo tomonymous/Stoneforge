@@ -16,7 +16,7 @@ public class ToggleChangedScript : MonoBehaviour
     public Image thumbnail;
     public Sprite[] stoneSprites;
     public TextMeshProUGUI cost;
-
+    bool startUp = false;
 
     public Toggle currentSelection
     {
@@ -45,6 +45,7 @@ public class ToggleChangedScript : MonoBehaviour
         {
             lock3.SetActive(true);
         }
+        startUp = true;
         foreach (Toggle t in toggles)
         {
             if(int.Parse(t.name) == PlayerPrefs.GetInt(toggleGroup.name + "Enabled")) //Check to see if toggle should be selected.
@@ -52,6 +53,7 @@ public class ToggleChangedScript : MonoBehaviour
                 t.isOn = true;
             }
         }
+        startUp = false;
     }
 
     public void ToggleChanged(bool value)
@@ -59,12 +61,17 @@ public class ToggleChangedScript : MonoBehaviour
         
         int v = int.Parse(currentSelection.name);
         PlayerPrefs.SetInt(toggleGroup.name +"Enabled", v);
+        if (!startUp)
+        {
+            FindObjectOfType<AudioManager>().Play("swap");
+        }
         FindObjectOfType<ToggleBackgroundScript>().SetLocks();
     }
 
     public void popUp(Button b)
     {
-        if(b.name == "1")
+        FindObjectOfType<AudioManager>().Play("switch");
+        if (b.name == "1")
         {
             cost.text = 4.ToString("000000");
             infoPanel.SetActive(true);

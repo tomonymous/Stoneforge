@@ -41,7 +41,7 @@ public class ToggleBackgroundScript : MonoBehaviour
 
     public void ToggleChanged(bool value)
     {
-
+        FindObjectOfType<AudioManager>().Play("black");
         int v = int.Parse(currentSelection.name);
         PlayerPrefs.SetInt("Background", v);
         backgroundImage.sprite = backgroundImages[v];
@@ -69,7 +69,7 @@ public class ToggleBackgroundScript : MonoBehaviour
                 
                 if (PlayerPrefs.GetInt("Piece" + p + "Enabled") == i || p==7)
                 {
-                    Debug.Log("Lock " + i + " Piece" + p);
+                    //Debug.Log("Lock " + i + " Piece" + p);
                     allEnabled = true;
                 }
                 else
@@ -81,19 +81,31 @@ public class ToggleBackgroundScript : MonoBehaviour
             if (allEnabled && i == 1)
             {
                 lock1.SetActive(false);
-                PlayerPrefs.SetInt("Background1Lock", 1);
+                if(PlayerPrefs.GetInt("Background1Lock", 0) != 1)
+                {
+                    FindObjectOfType<AudioManager>().Play("Confusion");
+                    PlayerPrefs.SetInt("Background1Lock", 1);
+                }
                 break;
             }
             if (allEnabled && i == 2)
             {
                 lock2.SetActive(false);
-                PlayerPrefs.SetInt("Background2Lock", 1);
+                if (PlayerPrefs.GetInt("Background2Lock", 0) != 1)
+                {
+                    FindObjectOfType<AudioManager>().Play("Confusion");
+                    PlayerPrefs.SetInt("Background2Lock", 1);
+                }
                 break;
             }
             if (allEnabled && i == 3)
             {
                 lock3.SetActive(false);
-                PlayerPrefs.SetInt("Background3Lock", 1);
+                if (PlayerPrefs.GetInt("Background3Lock", 0) != 1)
+                {
+                    FindObjectOfType<AudioManager>().Play("Confusion");
+                    PlayerPrefs.SetInt("Background3Lock", 1);
+                }
                 break;
             }
 
