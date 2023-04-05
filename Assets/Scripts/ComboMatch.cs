@@ -279,7 +279,7 @@ public class ComboMatch : MonoBehaviour
             InitializeBoard();
             VerifyBoard();
             InstantiateBoard();
-            Debug.Log(PlayerPrefs.GetInt("gameMode"));
+            //Debug.Log(PlayerPrefs.GetInt("gameMode"));
             audioManager.resume = false;
             if(PlayerPrefs.GetInt("gameMode") == 3)
             {
@@ -397,15 +397,15 @@ public class ComboMatch : MonoBehaviour
         for (int i = 0; i<numberOfPieces; i++) //sets piece to upgraded version if enabled.
         {
             int skinNumber = i + 1;
-            if(PlayerPrefs.GetInt("Piece" + i + "Enabled") == 1 && PlayerPrefs.GetInt("Skin " + skinNumber + " Unlocked") == 1)
+            if(PlayerPrefs.GetInt("Piece" + i + "Enabled") == 1)// && PlayerPrefs.GetInt("Skin " + skinNumber + " Unlocked") == 1)
             {
                 pieces[i] = upgradedPieces[i];
             }
-            if (PlayerPrefs.GetInt("Piece" + i + "Enabled") == 2 && PlayerPrefs.GetInt("Piece" + i + "Unlocked") == 1)
+            if (PlayerPrefs.GetInt("Piece" + i + "Enabled") == 2)// && PlayerPrefs.GetInt("Piece" + i + "Unlocked") == 1)
             {
                 pieces[i] = unlockedPieces[i];
             }
-            if (PlayerPrefs.GetInt("Piece" + i + "Enabled") == 3 && PlayerPrefs.GetInt("Piece" + i + "Chaos") == 1)
+            if (PlayerPrefs.GetInt("Piece" + i + "Enabled") == 3)// && PlayerPrefs.GetInt("Piece" + i + "Chaos") == 1)
             {
                 pieces[i] = chaosUnlockedPieces[i];
             }

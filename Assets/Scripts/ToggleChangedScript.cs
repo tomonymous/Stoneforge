@@ -61,6 +61,7 @@ public class ToggleChangedScript : MonoBehaviour
         
         int v = int.Parse(currentSelection.name);
         PlayerPrefs.SetInt(toggleGroup.name +"Enabled", v);
+        //Debug.Log(toggleGroup.name + "Enabled: " + v);
         if (!startUp)
         {
             FindObjectOfType<AudioManager>().Play("swap");
