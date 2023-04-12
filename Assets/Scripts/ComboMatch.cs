@@ -123,6 +123,7 @@ public class ComboMatch : MonoBehaviour
     public int tokens;
     public int totalTokens;
     public bool zenMode;
+    public bool savedRecently = false;
     public bool gameEnd = false;
     public bool gameRunning = false;
     public bool tutorialStop = false; //prevents stones moving for certain parts of tutorial.
@@ -279,7 +280,6 @@ public class ComboMatch : MonoBehaviour
             InitializeBoard();
             VerifyBoard();
             InstantiateBoard();
-            //Debug.Log(PlayerPrefs.GetInt("gameMode"));
             audioManager.resume = false;
             if(PlayerPrefs.GetInt("gameMode") == 3)
             {
@@ -352,7 +352,6 @@ public class ComboMatch : MonoBehaviour
                     counter++;
                 }
             }
-
             for(int i = 0; i<PlayerPrefs.GetString("InventorySave").Length; i+=2)
             {
                 AddPowerup(int.Parse(PlayerPrefs.GetString("InventorySave").Substring(i, 2)));
@@ -1324,6 +1323,11 @@ public class ComboMatch : MonoBehaviour
                 checkedForDuplicates = true;
             }
             saveButton.interactable = true;
+            if (!tutorial && !savedRecently)
+            {
+                SaveGame();
+                savedRecently = true;
+            }
         }
         if (scoringWaitTimer > 0)
         {
@@ -2494,7 +2498,7 @@ public class ComboMatch : MonoBehaviour
                 }
             }
         }
-
+        savedRecently = false;
         Node hole = getNodeAtPoint(p);
         hole.SetPiece(newPiece);
         ResetPiece(newPiece);
@@ -2535,7 +2539,7 @@ public class ComboMatch : MonoBehaviour
         }
     }
 
-    private IEnumerator TR(float pause, float life, int quantity)
+    private IEnumerator TR(float pause, float life, int quantity)  //Token Rush Event
     {
         WaitForSeconds tokenPause = new WaitForSeconds(pause);
 

@@ -15,8 +15,14 @@ public class MoveCounter : MonoBehaviour
 
     void Update()
     {
-
-        moves.text = movesMade.ToString("000");
+        if (movesMade < 1000)
+        {
+            moves.text = movesMade.ToString("000");
+        }
+        else
+        {
+            moves.text = movesMade.ToString();
+        }
     }
     public void Reset()
     {
